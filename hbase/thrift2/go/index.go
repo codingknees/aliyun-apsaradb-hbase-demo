@@ -63,15 +63,12 @@ func scan(client *hbase.THBaseServiceClient) {
 }
 func main() {
     HOST := os.Getenv("HOST")
-    USER := os.Getenv("USER")
-    PASSWD := os.Getenv("PASSWD")
+    // USER := os.Getenv("USER")
+    // PASSWD := os.Getenv("PASSWD")
 
     protocolFactory := thrift.NewTBinaryProtocolFactoryDefault()
-    trans, err := thrift.NewTHttpClient(HOST)
+    trans, err := thrift.NewTSocket(HOST)
      // 设置用户名密码
-    httClient := trans.(*thrift.THttpClient)
-    httClient.SetHeader("ACCESSKEYID", USER)
-    httClient.SetHeader("ACCESSSIGNATURE", PASSWD)
     if err != nil {
         fmt.Fprintln(os.Stderr, "error resolving address:", err)
         os.Exit(1)
